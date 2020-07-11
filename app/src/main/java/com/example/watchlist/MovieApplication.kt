@@ -17,8 +17,8 @@ class MovieApplication: Application() {
     override fun onCreate() {
         instance = this
         super.onCreate()
-        
-        database = Room.databaseBuilder(this, MovieDatabase::class.java, "movie_table").build()
+
+        database = Room.databaseBuilder(this, MovieDatabase::class.java, "movie_table").allowMainThreadQueries().build()
     }
     
 }

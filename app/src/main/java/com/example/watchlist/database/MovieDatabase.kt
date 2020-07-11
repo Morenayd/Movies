@@ -1,6 +1,8 @@
 package com.example.watchlist.database
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.towatchlist.model.Movie
 
@@ -8,5 +10,6 @@ import com.example.towatchlist.model.Movie
 abstract class MovieDatabase: RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
+
 
 }

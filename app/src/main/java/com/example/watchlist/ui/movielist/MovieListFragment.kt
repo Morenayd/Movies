@@ -31,12 +31,6 @@ class MovieListFragment : Fragment(), MovieListAdapter.MovieListClickListener {
         val binding = DataBindingUtil.inflate<FragmentMovieListBinding>(
             inflater, R.layout.fragment_movie_list, container, false)
         setHasOptionsMenu(true)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        movie_list_recyclerview.layoutManager = LinearLayoutManager(activity)
 
         //set up database
         database = MovieApplication.database
@@ -45,14 +39,18 @@ class MovieListFragment : Fragment(), MovieListAdapter.MovieListClickListener {
             dao.insertAllMovies(Movies.movieList)
         }
 
-        //adapter
-        val adapter = MovieListAdapter(this, Movies.movieList)
-        movie_list_recyclerview.adapter = adapter
-        adapter.getMovies()
-
         //viewmodel
         movieViewModel = ViewModelProvider(this).get(MovieListViewModel::class.java)
-        movieViewModel.insertAllMovies()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        movie_list_recyclerview.layoutManager = LinearLayoutManager(activity)
+        //adapter
+        val adapter = MovieListAdapter(this)
+        movie_list_recyclerview.adapter = adapter
+        adapter.getMovies(dao.getAllMovies())
     }
 
     override fun itemClicked(movie: Movie) {
