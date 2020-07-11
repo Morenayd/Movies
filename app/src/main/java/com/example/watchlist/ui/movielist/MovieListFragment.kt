@@ -14,7 +14,6 @@ import com.example.watchlist.SharedPrefs
 import com.example.watchlist.database.MovieDao
 import com.example.watchlist.database.MovieDatabase
 import com.example.watchlist.databinding.FragmentMovieListBinding
-import com.example.watchlist.model.Movies
 import com.example.watchlist.viewmodel.MovieListViewModel
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 
@@ -35,9 +34,6 @@ class MovieListFragment : Fragment(), MovieListAdapter.MovieListClickListener {
         //set up database
         database = MovieApplication.database
         dao = database.movieDao()
-        if(dao.getAllMovies().isEmpty()) {
-            dao.insertAllMovies(Movies.movieList)
-        }
 
         //viewmodel
         movieViewModel = ViewModelProvider(this).get(MovieListViewModel::class.java)
@@ -47,10 +43,11 @@ class MovieListFragment : Fragment(), MovieListAdapter.MovieListClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         movie_list_recyclerview.layoutManager = LinearLayoutManager(activity)
+
         //adapter
         val adapter = MovieListAdapter(this)
         movie_list_recyclerview.adapter = adapter
-        adapter.getMovies(dao.getAllMovies())
+        adapter.getMovies(movieViewModel.getMovies())
     }
 
     override fun itemClicked(movie: Movie) {
