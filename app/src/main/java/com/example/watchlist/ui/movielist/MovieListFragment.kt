@@ -19,8 +19,6 @@ import kotlinx.android.synthetic.main.fragment_movie_list.*
 
 class MovieListFragment : Fragment(), MovieListAdapter.MovieListClickListener {
 
-    private lateinit var database: MovieDatabase
-    private lateinit var dao: MovieDao
     private lateinit var movieViewModel: MovieListViewModel
 
     override fun onCreateView(
@@ -30,10 +28,6 @@ class MovieListFragment : Fragment(), MovieListAdapter.MovieListClickListener {
         val binding = DataBindingUtil.inflate<FragmentMovieListBinding>(
             inflater, R.layout.fragment_movie_list, container, false)
         setHasOptionsMenu(true)
-
-        //set up database
-        database = MovieApplication.database
-        dao = database.movieDao()
 
         //viewmodel
         movieViewModel = ViewModelProvider(this).get(MovieListViewModel::class.java)
