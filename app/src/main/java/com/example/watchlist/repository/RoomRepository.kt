@@ -23,15 +23,6 @@ class RoomRepository: MovieRepository {
         movieDao.deleteMovie(movie)
     }
 
-
     override fun getAllMovies() = allMovies
 
-
-    private class InsertAsyncTask internal constructor(private val dao: MovieDao): AsyncTask<List<Movie>, Void, Void>() {
-        override fun doInBackground(vararg params: List<Movie>): Void? {
-            dao.insertAllMovies(params[0])
-            return null
-        }
-
-    }
 }

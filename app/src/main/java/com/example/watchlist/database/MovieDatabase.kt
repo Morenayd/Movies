@@ -11,5 +11,4 @@ abstract class MovieDatabase: RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
 
-
 }
